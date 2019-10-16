@@ -178,7 +178,7 @@ export abstract class AbstractRequest<T, U = Page<T>> implements InterfaceReques
     );
   }
 
-  private getStatusMessage(event) {
+  private getStatusMessage(event: any) {
     let status;
     switch (event.type) {
       case HttpEventType.Sent:
