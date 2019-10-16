@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs';
 import { Page } from './page';
 
-export interface RequestInterface<T, U = Page<T>> {
+export interface InterfaceRequest<T, U = Page<T>> {
 
   /**
    * Buscar um registro

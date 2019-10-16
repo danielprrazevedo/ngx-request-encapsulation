@@ -1,10 +1,10 @@
 import { HttpClient, HttpRequest, HttpEventType } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { map, tap, last } from 'rxjs/operators';
-import { RequestInterface } from './request-interface';
+import { InterfaceRequest } from './interface-request';
 import { Page } from './page';
 
-export abstract class AbstractRequest<T, U = Page<T>> implements RequestInterface<T, U> {
+export abstract class AbstractRequest<T, U = Page<T>> implements InterfaceRequest<T, U> {
   constructor(
     protected http: HttpClient
   ) { }
@@ -13,25 +13,25 @@ export abstract class AbstractRequest<T, U = Page<T>> implements RequestInterfac
   public downloadProgress: BehaviorSubject<number> = new BehaviorSubject<number>(0);
 
   /**
-   * Base de url para requisição de serviço
+   * Service Request Url Basis
    */
   protected base_url = '';
 
   /**
-   * Path e version da api para requisição de serviço
+   * Api path and version for service request
    */
   protected path_version_api = 'api/';
 
   /**
-   * Path base para o serviço consumido
+   * Base path to service consumed
    */
   protected path = '';
 
   /**
-   * Motagem da url de requisição.
+   * Assembly of the request url.
    *
-   * @param action Define para qual action a url deve apontar dentro do path definido
-   * @param idOrQuery Define os parâmetros enviados na requisição
+   * @param action Defines what action the url should point to within the defined path
+   * @param idOrQuery Defines the parameters sent in the request
    */
   protected getUrl(action: string = '', idOrQuery: any = null): string {
     if (action !== '') {
@@ -48,10 +48,10 @@ export abstract class AbstractRequest<T, U = Page<T>> implements RequestInterfac
   }
 
   /**
-   * Implementação concreta do get
+   * Concrete implementation of get
    *
-   * @param action para acessar uma action personalizada no `path`
-   * @param idOrQuery Parametros para comparação
+   * @param action Action to access a custom action in `path`
+   * @param idOrQuery Parameters for comparison
    *
    * @return Observable object
    */
@@ -60,11 +60,11 @@ export abstract class AbstractRequest<T, U = Page<T>> implements RequestInterfac
   }
 
   /**
-   * Retorna um objeto do tipo página<T>
+   * Returns an object of type `U`
    *
-   * @param action Ação da requisição ou número da página requisitada
-   * @param page Número da página requisitada
-   * @param per_page Quantidade de registros de retorno
+   * @param action Request action or requested page number
+   * @param page Requested page number
+   * @param per_page Number of Return Records
    */
   public getPage(action: any = 'page', page: number = 0, per_page = 10): Observable<U> {
     if (typeof action === 'number') {
@@ -75,12 +75,12 @@ export abstract class AbstractRequest<T, U = Page<T>> implements RequestInterfac
   }
 
   /**
-   * Retorna um objeto do tipo página<T>
+   * Returns an object of type `U`
    *
-   * @param action Ação da requisição ou número da página requisitada
-   * @param query Condicional de consulta, será enviado por query-params
-   * @param page Número da página requisitada
-   * @param perPage Quantidade de registros de retorno
+   * @param action Request action or requested page number
+   * @param query Query conditional, will be sent by query-params
+   * @param page Requested page number
+   * @param perPage Number of Return Records
    */
   public getQueryPage(action: any = 'page-query', query: any = {}, page: number = 0, perPage = 10): Observable<U> {
     if (typeof query === 'number') {
@@ -98,31 +98,31 @@ export abstract class AbstractRequest<T, U = Page<T>> implements RequestInterfac
   }
 
   /**
-   * Implementação concreta do post
+   * Concrete Post Implementation
    *
-   * @param model Modelo de classe a ser inserido no banco
-   * @param action Action que será encaminhado o formulário
+   * @param model Class template to insert into bank
+   * @param action Action that will be sent the form
    */
   public post(model: T|any, action?: string): Observable<T|any> {
     return this.http.post<T|any>(this.getUrl(action), model, { reportProgress: true });
   }
 
   /**
-   * Modelo enviado para edição por id ou query em uma action específica
+   * Template submitted for editing by id or query in a specific action
    *
-   * @param model Modelo enviado na requisição
-   * @param idOrQuery Id ou Objeto com parametros para comparação
-   * @param action Action de destino
+   * @param model Template submitted on request
+   * @param idOrQuery Id or Object with parameters for comparison
+   * @param action Target Action
    */
   public put(model: T|any, idOrQuery?: number|any, action?: string): Observable<T|any> {
     return this.http.put<T>(this.getUrl(action, idOrQuery), model);
   }
 
   /**
-   * Envio de registro(s) para deletar na controller definida no `path`
+   * Sending record(s) to delete in controller defined in `path`
    *
-   * @param idOrQuery Id ou Parâmetros para comparação
-   * @param action Action de destino na controller do `path`
+   * @param idOrQuery Id or Parameters for comparison
+   * @param action Target action in `path` controller
    */
   public delete(idOrQuery: number|any, action?: string): Observable<boolean|any> {
     if (typeof idOrQuery === 'string') {
@@ -133,11 +133,11 @@ export abstract class AbstractRequest<T, U = Page<T>> implements RequestInterfac
   }
 
   /**
-   * Realiza upload retornando o progresso por POST
+   * Uploads returning progress by POST
    *
-   * @param form Formulário enviado na requisição
-   * @param idOrQuery Id ou Objeto com parametros para comparação
-   * @param action Action de destino
+   * @param form Form submitted on request
+   * @param idOrQuery Id or Object with parameters for comparison
+   * @param action Target Action
    */
   public upload(form: any, idOrQuery?: number|any, action?: string): Observable<any> {
     if (typeof idOrQuery === 'string') {
@@ -156,10 +156,10 @@ export abstract class AbstractRequest<T, U = Page<T>> implements RequestInterfac
   }
 
   /**
-   * Realiza download retornando progresso
+   * Download returning progress
    *
-   * @param idOrQuery Objeto com parametros para comparação
-   * @param action Action de destino
+   * @param idOrQuery Object with parameters for comparison
+   * @param action Target Action
    */
   public download(idOrQuery?: number|any, action?: string): Observable<any> {
     if (typeof idOrQuery === 'string') {
