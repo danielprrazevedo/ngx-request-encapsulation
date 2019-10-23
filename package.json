@@ -1,8 +1,8 @@
 {
   "name": "ngx-request-encapsulation",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Encapsulation of http request service to @angular/common/http",
-  "main": "dist/index.d.ts",
+  "main": "dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "prepublish": "tsc"
@@ -30,7 +30,7 @@
     "@angular/common": ">=4",
     "rxjs": ">=4"
   },
-  "types": "index.d.ts",
+  "types": "./dist/index.d.ts",
   "devDependencies": {
     "@angular/core": ">=4",
     "typescript": ">=2"
