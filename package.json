@@ -1,12 +1,15 @@
 {
   "name": "ngx-request-encapsulation",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Encapsulation of http request service to @angular/common/http",
-  "main": "index.ts",
+  "main": "dist/index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "prepublish": "tsc"
   },
+  "files": [
+    "dist/"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/danielprrazevedo/ngx-request-encapsulation.git"
@@ -24,8 +27,12 @@
   },
   "homepage": "https://github.com/danielprrazevedo/ngx-request-encapsulation#readme",
   "dependencies": {
-    "@angular/common": "^5.2.11",
-    "rxjs": "^6.5.3"
+    "@angular/common": ">=4",
+    "rxjs": ">=4"
   },
-  "types": "index.d.ts"
+  "types": "index.d.ts",
+  "devDependencies": {
+    "@angular/core": ">=4",
+    "typescript": ">=2"
+  }
 }
