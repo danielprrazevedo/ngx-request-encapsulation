@@ -1,6 +1,6 @@
 {
   "name": "ngx-request-encapsulation",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Encapsulation of http request service to @angular/common/http",
   "main": "dist/index.js",
   "scripts": {
