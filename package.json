@@ -32,7 +32,7 @@
   },
   "types": "./dist/index.d.ts",
   "devDependencies": {
-    "@angular/core": ">=4",
+    "@angular/core": ">=10",
     "typescript": ">=2"
   }
 }
